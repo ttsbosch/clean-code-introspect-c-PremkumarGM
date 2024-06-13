@@ -6,59 +6,6 @@
 
 #define MAX_TRADE_RECORDS 1024
 #define MAX_LINE_LENGTH 1024
-#define CURRENCY_LENGTH 3
-
-
-
-char** SplitString(const char* inputstring, char delimiter) {
-    int Delimiter_count = 0;
-    const char* string = inputstring;
-    while (*string != '\0') {
-        if (*string++ == delimiter) {
-            Delimiter_count++;
-        }
-    }
-
-    char** tokens = (char**)malloc(sizeof(char*) * (String_count + 2));
-    int tokenset = 0;
-    string = inputstring;
-    char* token = (char*)malloc(strlen(str) + 1);
-    int tokeniterator = 0;
-    while (*string != '\0') {
-        if (*string == delimiter) {
-            token[tokeniterator] = '\0';
-            tokens[tokenset++] = strdup(token);
-            tokeniterator = 0;
-        } else {
-            token[tokeniterator++] = *string;
-        }
-        string++;
-    }
-    token[tokeniterator] = '\0';
-    tokens[tokenset++] = strdup(token);
-    tokens[tokenset] = NULL;
-    free(token);
-    return tokens;
-}
-
-
-bool TrytoConvertintoint(const char* inputstring, int* output_Integervalue) {
-    char* Convertion;
-    *output_Integervalue = strtol(inputstring, &Convertion, 10);
-    if (Convertion == inputstring) {
-        return 0;
-    }
-    return 1;
-}
-
-bool TrytoConvertintoDouble(const char* inputstring, double* output_doublevalue) {
-    char* Convertion;
-    *output_doublevalue = strtod(inputstring, &Convertion);
-    if (Convertion == inputstring) {
-        return 0;
-    }
-    return 1;
-}
 
 void ConvertDatafromCsvtoXML(FILE* stream) {
     char line[MAX_LINE_LENGTH];
