@@ -8,21 +8,26 @@
 #define MAX_TRADE_RECORDS 1024
 #define MAX_LINE_LENGTH 1024
 
-void ConvertDatafromCsvtoXML(FILE* stream) {
-    char line[MAX_LINE_LENGTH];
-    Trade_Record Records[MAX_TRADE_RECORDS];
-    int lineCount = 0;
-    int currentRecord = 0;
-
-    while (fgets(line, sizeof(line), stream)) {
-        char* fields[3];
+readTradeDataFromCsv(FILE* stream)
+{
+while (fgets(line, sizeof(line), stream)) {
+        
         int fieldCount = 0;
         char* token = strtok(line, ",");
         while (token != NULL) {
             fields[fieldCount++] = token;
             token = strtok(NULL, ",");
         }
+}
 
+void ConvertDatafromCsvtoXML(FILE* stream) {
+    char line[MAX_LINE_LENGTH];
+    Trade_Record Records[MAX_TRADE_RECORDS];
+    int lineCount = 0;
+    int currentRecord = 0;
+    char* fields[3];
+    readTradeDataFromCsv(stream);
+    
         if (fieldCount != 3) {
             fprintf(stderr, "WARN: Line %d malformed. Only %d field(s) found.\n", lineCount + 1, fieldCount);
             continue;
