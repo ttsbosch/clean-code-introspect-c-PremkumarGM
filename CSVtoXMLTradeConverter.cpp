@@ -10,6 +10,7 @@
 
 void readTradeDataFromCsv(FILE* stream)
 {
+        char* fields[3];
 while (fgets(line, sizeof(line), stream)) {
         
         int fieldCount = 0;
@@ -72,7 +73,7 @@ void ConvertDatafromCsvtoXML(FILE* stream) {
     Trade_Record Records[MAX_TRADE_RECORDS];
     int lineCount = 0;
     int currentRecord = 0;
-    char* fields[3];
+    
     readTradeDataFromCsv(stream);
     validateTradeData();
     mapCsvLineDataToTradeData();
