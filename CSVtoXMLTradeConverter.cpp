@@ -8,19 +8,34 @@
 #define MAX_TRADE_RECORDS 1024
 #define MAX_LINE_LENGTH 1024
 
-void readTradeDataFromCsv(FILE* stream)
+
+char **ReadTradeDataFromCsv(FILE *stream)
 {
-        char* fields[3];
-while (fgets(line, sizeof(line), stream)) {
-        
-        int fieldCount = 0;
-        char* token = strtok(line, ",");
-        while (token != NULL) {
-            fields[fieldCount++] = token;
-            token = strtok(NULL, ",");
-        }
+    char **lines = NULL;
+    char line[MAX_LINE_LENGTH];
+    int capacity = INITIAL_CAPACITY;
+    int count = 0;
+
+    // Allocate memory forarray of lines
+    lines = (char **)malloc(capacity * sizeof(char *));
+    if (!lines) {
+        fprintf(stderr, "Memory allocation failed.\n");
+        return NULL;
+    }
+
+    while (fgets(line, sizeof(line), stream)) {
+        // Allocate memory for the line
+        lines[count] = (char *)malloc((strlen(line) + 1) * sizeof(char));
+        memcpy(lines[count] , line, strlen(line));
+        //printf("%s\n",lines[count]);
+        count++;
+    }
+
+    return lines;
 }
-}
+
+
+
 void validateTradeData(void)
 {
         if (fieldCount != 3) {
@@ -69,7 +84,7 @@ void writeTradeDataToXML(void)
     printf("INFO: %d trades ConvertDatafromCsvtoXMLed\n", currentRecord);       
 }
 void ConvertDatafromCsvtoXML(FILE* stream) {
-    char line[MAX_LINE_LENGTH];
+    
     Trade_Record Records[MAX_TRADE_RECORDS];
     int lineCount = 0;
     int currentRecord = 0;
