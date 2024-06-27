@@ -1,4 +1,4 @@
-char** SplitString(const char* inputstring, char delimiter) {
+/*char** SplitString(const char* inputstring, char delimiter) {
     int delimiter_count = 0;
     const char* string = inputstring;
 
@@ -55,5 +55,5 @@ char** SplitString(const char* inputstring, char delimiter) {
     tokens[token_index] = NULL;
 
     return tokens;
-}
+}*/
 
